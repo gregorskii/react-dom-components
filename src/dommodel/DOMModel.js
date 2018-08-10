@@ -24,13 +24,25 @@ export default class DOMModel {
     }
 
     getAllDataAttributes(filter) {
-        const props = {...this.element.dataset};
-        
+        let props = {...this.element.dataset};
+
         if (filter) {
             if (typeof filter === 'string' || filter instanceof String) {
-                props = Object.keys(props).filter((key) => 
-                    key.toLowerCase().includes(filter.toLowerCase()));
-            }    
+                const filteredKeys =  Object.keys(props)
+                    .filter((key) => {
+                        return key.toLowerCase().includes(filter.toLowerCase());
+                    })
+                ;
+
+                if (filteredKeys.length) {
+                    props = filteredKeys.reduce((obj, key) => {
+                        return {
+                            ...obj,
+                            [key]: props[key]
+                        }
+                    }, {});
+                }
+            }
         }
 
         this.props = {...this.props, ...props};
