@@ -23,6 +23,19 @@ export default class DOMModel {
         this.props[name] = this.element.dataset[name];
     }
 
+    getAllDataAttributes(filter) {
+        const props = {...this.element.dataset};
+        
+        if (filter) {
+            if (typeof filter === 'string' || filter instanceof String) {
+                props = Object.keys(props).filter((key) => 
+                    key.toLowerCase().includes(filter.toLowerCase()));
+            }    
+        }
+
+        this.props = {...this.props, ...props};
+    }
+
     getAttribute(name, propName) {
         if (!propName) {
             propName = name;
