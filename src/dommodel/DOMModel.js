@@ -23,6 +23,31 @@ export default class DOMModel {
         this.props[name] = this.element.dataset[name];
     }
 
+    getAllDataAttributes(filter) {
+        let props = {...this.element.dataset};
+
+        if (filter) {
+            if (typeof filter === 'string' || filter instanceof String) {
+                const filteredKeys =  Object.keys(props)
+                    .filter((key) => {
+                        return key.toLowerCase().includes(filter.toLowerCase());
+                    })
+                ;
+
+                if (filteredKeys.length) {
+                    props = filteredKeys.reduce((obj, key) => {
+                        return {
+                            ...obj,
+                            [key]: props[key]
+                        }
+                    }, {});
+                }
+            }
+        }
+
+        this.props = {...this.props, ...props};
+    }
+
     getAttribute(name, propName) {
         if (!propName) {
             propName = name;
