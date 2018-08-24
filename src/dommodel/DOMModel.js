@@ -96,4 +96,8 @@ export default class DOMModel {
         }
         return null;
     }
+
+    getObjectFromDataAttribute(name) {
+        this.props[name] = JSON.parse(this.element.dataset[name]);
+    }
 }
