@@ -83,6 +83,32 @@ export default class DOMModel {
         }
     }
 
+    queryChildDOMModel(query, model) {
+        const childElement = this.queryChildNode(query);
+        if (childElement !== null) {
+            this.props[query] = new model(childElement);
+        } else {
+            this.props[query] = null;
+        }
+    }
+
+    queryChildDOMModelArray(query, model) {
+        this.props[query] = [];
+        const elements = this.queryChildNodes(query);
+
+        Array.prototype.forEach.call(elements, (element) => {
+            this.props[query].push(new model(element));
+        });
+    }
+
+    queryChildNode(query) {
+        return this.element.querySelector(query);
+    }
+
+    queryChildNodes(query) {
+        return this.element.querySelectorAll(query);
+    }
+
     getChildNodes() {
         this.nodes = this.element.childNodes;
     }
