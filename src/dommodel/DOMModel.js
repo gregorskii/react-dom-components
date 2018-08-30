@@ -36,6 +36,10 @@ export default class DOMModel {
 
                 if (filteredKeys.length) {
                     props = filteredKeys.reduce((obj, key) => {
+                        if (props[key] === 'true' || props[key] === 'false') {
+                            props[key] === 'true' ? true : false;
+                        }
+
                         return {
                             ...obj,
                             [key]: props[key]
