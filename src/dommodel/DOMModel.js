@@ -47,7 +47,7 @@ export default class DOMModel {
 
         Object.keys(props).forEach((key) => {
             if (props[key] === 'true' || props[key] === 'false') {
-                props[key] === 'true' ? true : false;
+                props[key] = props[key] === 'true' ? true : false;
             }
         });
 
