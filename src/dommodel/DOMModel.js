@@ -36,10 +36,6 @@ export default class DOMModel {
 
                 if (filteredKeys.length) {
                     props = filteredKeys.reduce((obj, key) => {
-                        if (props[key] === 'true' || props[key] === 'false') {
-                            props[key] === 'true' ? true : false;
-                        }
-
                         return {
                             ...obj,
                             [key]: props[key]
@@ -48,6 +44,12 @@ export default class DOMModel {
                 }
             }
         }
+
+        Object.keys(props).forEach((key) => {
+            if (props[key] === 'true' || props[key] === 'false') {
+                props[key] === 'true' ? true : false;
+            }
+        });
 
         this.props = {...this.props, ...props};
     }
